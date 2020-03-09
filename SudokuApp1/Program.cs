@@ -31,8 +31,7 @@ namespace SudokuApp1
                 new int[] {2,4,3,1}
             };
 
-            //--------------------------------------------------------------------------------------------------------------
-
+            
             int[][] badSudoku1 =  {
                 new int[] {1,2,3, 4,5,6, 7,8,9},
                 new int[] {1,2,3, 4,5,6, 7,8,9},
@@ -81,39 +80,36 @@ namespace SudokuApp1
                 new int[] {1,2,3, 4,5,6, 7,8,9}
             };
 
-            int[][] badSudoku5 = {
-                new int[] {1,4, 2},
-                new int[] {3,2, 4},
+          
+            int[][] badSudoku5 = {    
+                new int[] {1, 2, 3},
+                new int[] {5, 0, 8},
 
-                new int[] {4,1, 3}
+                new int[] {4, 1, 7}
             };
-
 
             ValidateSudoku validate = new ValidateSudoku();
 
+           
+            var isSudokuZero = validate.IsSudokuNumGreaterThanZero(goodSudoku2);
+            Console.WriteLine($"Sudoku Numbers are Greater Than Zero: {isSudokuZero}");
 
-            Console.WriteLine();
-
-            var rowColEqual = validate.IsSudokuNumGreaterThanZeroLessThanNine(badSudoku5);
+            
+            var rowColEqual = validate.IsRowsColumnsEqual(goodSudoku2);
             Console.WriteLine($"Rows and columns of Sudoku has equal length: {rowColEqual}");
 
-            /*
-            var rowColEqual = validate.IsRowsColumnsEqual(badSudoku3);
-            Console.WriteLine($"Rows and columns of Sudoku has equal length: {rowColEqual}");
+          
+            var rowValid = validate.IsRowsDuplicate(goodSudoku2);
+            Console.WriteLine($"Rows are duplicate: {rowValid}");
 
-
-            var rowValid = validate.IsRowsDuplicate(badSudoku3);
-            Console.WriteLine($"Rows are not duplicate: {rowValid}");
-
-
-            var colValid = validate.IsColumnsDuplicate(badSudoku3);
-            Console.WriteLine($"Columns are not duplicate: {colValid} \n");
+           
+            var colValid = validate.IsColumnsDuplicate(goodSudoku2);
+            Console.WriteLine($"Columns are duplicate: {colValid} \n");
            
 
-
-            var final = validate.FinalValidate(badSudoku3);
+            var final = validate.FinalValidate(goodSudoku2);
             Console.WriteLine($"It's a good sudoku!: { final}");
-            */
+            
         }
 
     }

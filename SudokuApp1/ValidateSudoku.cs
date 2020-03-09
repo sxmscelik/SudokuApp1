@@ -5,8 +5,8 @@ namespace SudokuApp1
 {
     public class ValidateSudoku
     {
-
-        public bool IsSudokuNumGreaterThanZeroLessThanNine(int[][] sudoku)
+        //Sudoku numbers > 0
+        public bool IsSudokuNumGreaterThanZero(int[][] sudoku)
         {
             for (int i = 0; i < sudoku.Length; i++)
             {
@@ -16,100 +16,82 @@ namespace SudokuApp1
                     {
                         return false;
                     }
-                    else if (sudoku[i][j] > 9)
-                    {
-                        return false;
-                    }
                 }
             }
             return true;
         }
 
 
-
-
-        /*
-        
-        public bool IsRowsAreDuplicate(int[][] sudoku)              //Checks for duplicate rows
+        // NxN
+        public bool IsRowsColumnsEqual(int[][] sudoku)
         {
-           
             for (int i = 0; i < sudoku.Length; i++)
             {
-                for (int j = 0; j < sudoku.Length-1; j++)
-                {
-                    if (sudoku[i][j] == sudoku[i][j+1])
-                    {
-                        return false;
-                    }
-                }
-            }
-            return true;
-        }
-
-        
-          
-        public bool IsColumnsDuplicate(int[][] sudoku)           //Checks for duplicate columns
-        {
-            if (IsRowsColumnsEqual(sudoku) == false || sudoku.Length == 0)
-            {
-                return false;
-            }
-
-            for (int i = 0; i < (sudoku.Length-1); i++)
-            {
-                for (int j = 0; j < sudoku.Length; j++)
-                {
-                    if (sudoku[i][j] == sudoku[i+1][j])
-                    {
-                        return false;
-                    }
-                }
-            }
-            return true;
-        }
-
-        
-
-        public bool IsRowsColumnsEqual(int[][] sudoku)               // NxN
-        {
-            int rows = sudoku.Length;
-            int cols;
-
-            for (int i = 0; i < sudoku.Length; i++)
-            {
-                cols = sudoku[i].Length;
-            }
-
-           
-
-            for (int i = 0; i < sudoku.Length; i++)
-            {
-                cols = sudoku[i].Length;
-
-                if (rows != cols)
+                if (sudoku.Length != sudoku[i].Length)
                 {
                     return false;
                 }
-               
             }
             return true;
         }
 
 
-        public bool FinalValidate(int[][] sudoku)
+
+        public bool IsRowsDuplicate(int[][] sudoku)
         {
-            if (IsColumnsDuplicate(sudoku) == false || IsRowsDuplicate(sudoku) == false || IsRowsColumnsEqual(sudoku) == false)
+            for (int i = 0; i < sudoku.Length; i++)
             {
-                return false;
+                for (int j = 0; j < sudoku[i].Length; j++)
+                {
+                    for (int k = j + 1; k < sudoku[i].Length; k++)
+                    {
+                        if (sudoku[i][j] == sudoku[i][k])
+                        {
+                            return true;
+                        }
+                    }
+                }
             }
-            else
-            {
-                return true;
-            }
+            return false;
         }
 
-        */
 
+
+        public bool IsColumnsDuplicate(int[][] sudoku)
+        {
+
+            for (int i = 0; i < sudoku.Length; i++)
+            {
+                for (int j = 0; j < sudoku[i].Length - 1; j++)
+                {
+                    for (int k = j + 1; k < sudoku[i].Length; k++)
+                    {
+                        if (sudoku[j][i] == sudoku[k][i])
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
+       
+        public bool FinalValidate(int[][] sudoku)
+        {
+            if (IsRowsDuplicate(sudoku) == true)
+                return false;
+
+            if (IsColumnsDuplicate(sudoku) == true)
+                return false;
+
+            if (IsRowsColumnsEqual(sudoku) == false)
+                return false;
+
+            if (IsSudokuNumGreaterThanZero(sudoku) == false)
+                return false;
+
+            return true;
+        }
     }
-
 }
